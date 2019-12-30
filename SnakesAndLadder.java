@@ -1,11 +1,10 @@
 import java.util.*;
-import java.awt.*;
-import java.awt.event.*;
+
 
 public class SnakesAndLadder{
-	Board board;
-	Player[] players;
-	int no_of_players;
+	private Board board;
+	private Player[] players;
+	private int no_of_players;
 	Scanner scan = new Scanner(System.in);
 	void gameSetUp(){
 		board = new Board();
@@ -39,23 +38,23 @@ public class SnakesAndLadder{
 		return true;
 	}
 	private void checkInBoard(int playerNum){
-		int toStep = board.checkForSnakes(players[i].position);
+		int toStep = board.checkForSnakes(players[playerNum].position);
 		if(toStep != -1){
 			System.out.println("\t\t\t~~~~~~~~~~~~~^,^ Snake Bit");
-			players[i].setPosition(toStep);	
+			players[playerNum].setPosition(toStep);	
 		}else{
-			toStep = board.checkForLadders(players[i].position);
+			toStep = board.checkForLadders(players[playerNum].position);
 			if(toStep != -1){
 				System.out.println("\t\t\t/-/\n\t\t\t/-/\n\t\t\t/-/\n\t\t\t/-/\n\t\t\t/-/ \tLadder\n\t\t\t/-/\n\t\t\t/-/\n\t\t\t/-/\n\t\t\t/-/\n\t\t\t");
-				players[i].setPosition(toStep);
+				players[playerNum].setPosition(toStep);
 			}
 		}
 	}
 	void startGame(){
 		boolean isAnyoneWin = false;
 		while(!isAnyoneWin){	
-			for(int i=0;i<no_of_players;i++){
-				  int value = playerThrowDie(players[i]);
+			for(int i=0;i<no_of_players;){
+				  int value = players[i].rollDie();
 				  loadingTime(1000l);
 				  boolean possible = isPossibleSteps(players[i],value);
 				  if(!possible){
@@ -70,6 +69,10 @@ public class SnakesAndLadder{
 				  	System.out.println(players[i].name +" Won the game.");
 				  	break;
 				  }
+
+				  if(value != 6  || (!possible && value == 6)){
+				  	i++;
+				  }
 				  loadingTime(3000l);
 			}
 
@@ -83,14 +86,5 @@ public class SnakesAndLadder{
 	    }
 
     }
-	private int playerThrowDie(Player player){
-		System.out.println("\n\n\t\t*********** Hello, "+player.getName()+ " !***********\n\t\t You are at "+player.position);
-		System.out.print("press Enter to throw die:");
-		String c=scan.nextLine();
-		int value  = Dice.throwDie();
-		loadingTime(1000l);
-		System.out.println("\n\n\t\t\t******* Die shows "+value+"********\n");
-		
-		return value; 
-	}
+	
 }

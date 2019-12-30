@@ -7,26 +7,10 @@ class Ladder{
 		this.endPoint = endPoint;
 	}
 
-	int getStartPoint(){
-		return startPoint;
-	}
-
-	int getEndPoint(){
-		return endPoint;
-	}
-
-	void setStartPoint(){
-		this.startPoint = startPoint;
-	}
-
-	void setEndPoint(){
-		this.endPoint = endPoint;
-	}
-
-	boolean isHit(int point){
+	int checkHit(int point){
 		if(point == startPoint){
-			return true;
+			return endPoint;
 		}
-		return false;
+		return -1;
 	}
 }

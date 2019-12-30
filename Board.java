@@ -2,8 +2,8 @@
 import java.util.*;
 public class Board{
 	static final int size = 100;
-	static ArrayList<Snake> snakesList = new ArrayList<>();
-	static ArrayList<Ladder> ladderList = new ArrayList<>();
+	private static ArrayList<Snake> snakesList = new ArrayList<>();
+	private static ArrayList<Ladder> ladderList = new ArrayList<>();
 
 
 	static{
@@ -13,8 +13,9 @@ public class Board{
 
 	int checkForSnakes(int position){
 		for(int i=0;i<snakesList.size();i++){
-			if(snakesList.get(i).isByte(position)){
-				return snakesList.get(i).getEndPoint();
+			int snakeEndPoint = snakesList.get(i).checkBite(position);
+			if(snakeEndPoint != -1){
+				return snakeEndPoint;
 			}
 		}
 		return -1;
@@ -22,13 +23,15 @@ public class Board{
 
 	int checkForLadders(int position){
 		for(int i=0;i<ladderList.size();i++){
-			if(ladderList.get(i).isHit(position)){
-				return ladderList.get(i).getEndPoint();
+			int ladderEndPoint = ladderList.get(i).checkHit(position);
+			if(ladderEndPoint != -1){
+				return ladderEndPoint;
 			}
 		}
 		return -1;
 	}
 
+	
 	private static void initializeSnakes(){
 		Snake snake = new Snake(16,8);
 		snakesList.add(snake);
