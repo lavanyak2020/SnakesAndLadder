@@ -38,13 +38,13 @@ public class SnakesAndLadder{
 		return true;
 	}
 	private void checkInBoard(int playerNum){
-		int toStep = board.checkForSnakes(players[playerNum].position);
-		if(toStep != -1){
+		Snake snake = board.checkForSnakes(players[playerNum].position);
+		if(snake != null){
 			System.out.println("\t\t\t~~~~~~~~~~~~~^,^ Snake Bit");
 			players[playerNum].setPosition(toStep);	
 		}else{
-			toStep = board.checkForLadders(players[playerNum].position);
-			if(toStep != -1){
+			Ladder ladder = board.checkForLadders(players[playerNum].position);
+			if(ladder != null){
 				System.out.println("\t\t\t/-/\n\t\t\t/-/\n\t\t\t/-/\n\t\t\t/-/\n\t\t\t/-/ \tLadder\n\t\t\t/-/\n\t\t\t/-/\n\t\t\t/-/\n\t\t\t/-/\n\t\t\t");
 				players[playerNum].setPosition(toStep);
 			}
@@ -75,7 +75,6 @@ public class SnakesAndLadder{
 				  }
 				  loadingTime(3000l);
 			}
-
 		}
 	}
 	private void loadingTime(long waitTime) {

@@ -11,24 +11,24 @@ public class Board{
 		initializeLadders();
 	}
 
-	int checkForSnakes(int position){
-		for(int i=0;i<snakesList.size();i++){
-			int snakeEndPoint = snakesList.get(i).checkBite(position);
+	Snake checkForSnakes(int position){
+		for(Snake snake : snakesList){
+			int snakeEndPoint = snake.checkBite(position);
 			if(snakeEndPoint != -1){
-				return snakeEndPoint;
+				return snake;
 			}
 		}
-		return -1;
+		return null;
 	}
 
-	int checkForLadders(int position){
-		for(int i=0;i<ladderList.size();i++){
-			int ladderEndPoint = ladderList.get(i).checkHit(position);
+	Ladder checkForLadders(int position){
+		for(Ladder ladder : ladderList){
+			int ladderEndPoint = ladder.checkHit(position);
 			if(ladderEndPoint != -1){
-				return ladderEndPoint;
+				return ladder;
 			}
 		}
-		return -1;
+		return null;
 	}
 
 	
